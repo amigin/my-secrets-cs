@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace MySecrets.App.AzureStorage
 {
-  public class AzureBlobStorage 
+    public class AzureBlobStorage
     {
         private readonly CloudBlobClient _blobClient;
 
@@ -37,7 +37,7 @@ namespace MySecrets.App.AzureStorage
 
             var blockBlob = containerRef.GetBlockBlobReference(key);
 
-            return blockBlob.UploadFromByteArrayAsync(blobData,0, blobData.Length);
+            return blockBlob.UploadFromByteArrayAsync(blobData, 0, blobData.Length);
         }
 
         public async Task<byte[]> GetAsBytes(string blobContainer, string key)
@@ -50,7 +50,7 @@ namespace MySecrets.App.AzureStorage
             ms.Position = 0;
             return ms.ToArray();
         }
- 
+
 
         public async Task<Stream> GetAsync(string blobContainer, string key)
         {
@@ -63,54 +63,6 @@ namespace MySecrets.App.AzureStorage
             return ms;
         }
 
-        /*
-        public string[] FindNamesByPrefix(string container, string prefix)
-        {
-            var containerRef = _blobClient.GetContainerReference(container);
-
-            var res = containerRef.ListBlobs(prefix, true);
-            try
-            {
-                return res.Select(item => item.Uri.ToString()).ToArray();
-
-            }
-            catch (StorageException e)
-            {
-                if (e.Message.IndexOf("404", StringComparison.Ordinal)>-1)
-                  return new string[0];
-
-                throw;
-            }
-        }
-
-        public IEnumerable<string> GetListOfBlobs(string container)
-        {
-            var containerRef = _blobClient.GetContainerReference(container);
-
-            BlobContinuationToken token = null;
-            do
-            {
-                var result = containerRef.ListBlobsSegmented(token);
-                token = result.ContinuationToken;
-                foreach (var listBlobItem in result.Results)
-                {
-                    yield return listBlobItem.Uri.ToString();
-                }
- 
-                //Now do something with the blobs
-            } while (token != null);
-
-        }
-
-
-        public void DelBlob(string container, string key)
-        {
-            var containerRef = _blobClient.GetContainerReference(container);
-
-            var blockBlob = containerRef.GetBlockBlobReference(key);
-            blockBlob.Delete();
-        }
-*/
         public Task DelBlobAsync(string blobContainer, string key)
         {
             var containerRef = _blobClient.GetContainerReference(blobContainer);

@@ -21,14 +21,14 @@ namespace MySecrets.App.UiRenderer
             };
         }
     }
-    
+
     public class RenderLineEngine
     {
         private readonly ScreenSymbol[] _theLine;
-        
+
         public RenderLineEngine(int line, int width)
         {
-            var c = ScreenSymbol.Create(' ', null, null);            
+            var c = ScreenSymbol.Create(' ', null, null);
             _theLine = new ScreenSymbol[width];
             for (var x = 0; x < _theLine.Length; x++)
                 _theLine[x] = c;
@@ -57,7 +57,7 @@ namespace MySecrets.App.UiRenderer
 
             if (foregroundColor != null)
                 Console.ForegroundColor = foregroundColor.Value;
-                    
+
             if (backgroundColor != null)
                 Console.BackgroundColor = backgroundColor.Value;
         }
@@ -90,7 +90,7 @@ namespace MySecrets.App.UiRenderer
                 {
                     Console.Write(stringBuilder.ToString());
                     stringBuilder.Clear();
-                    
+
                     ChangeColor(backgroundColor, foregroundColor);
 
                 }
@@ -98,17 +98,17 @@ namespace MySecrets.App.UiRenderer
                 stringBuilder.Append(symbol.Char);
 
             }
-            
-            
-            if (stringBuilder.Length>0)
+
+
+            if (stringBuilder.Length > 0)
                 Console.Write(stringBuilder.ToString());
-            
+
 
         }
 
         public override string ToString()
         {
-            return " "+_theLine[0].Char;
+            return " " + _theLine[0].Char;
         }
     }
 }
